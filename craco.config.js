@@ -11,6 +11,7 @@ module.exports = {
             '~/routes': path.resolve(__dirname, './src/routes'),
             '~/modules': path.resolve(__dirname, './src/modules'),
             '~/hooks': path.resolve(__dirname, './src/hooks'),
+            '~/api': path.resolve(__dirname, './src/api'),
         },
     },
 };

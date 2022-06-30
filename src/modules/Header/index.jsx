@@ -1,9 +1,9 @@
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import { Container } from 'reactstrap';
 import { Link, NavLink } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
+import { productApi } from '~/api';
 import config from '~/config';
 import { useDebounce } from '~/hooks';
 import styles from './Header.module.scss';
@@ -15,6 +15,7 @@ function Header() {
     const [keyword, setKeyword] = useState('');
     const [products, setProducts] = useState([]);
     const [showResult, setShowResult] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -24,9 +25,11 @@ function Header() {
     useDebounce(
         () => {
             if (keyword.trim()) {
-                axios
-                    .get(`https://reactojt-api.fullstack.edu.vn/api/products?q=${keyword}`)
-                    .then((res) => setProducts(res.data.data));
+                setLoading(true);
+                productApi
+                    .getList(keyword)
+                    .then((res) => setProducts(res.data.data))
+                    .finally(() => setLoading(false));
             } else {
                 setProducts([]);
             }
@@ -154,7 +157,7 @@ function Header() {
                             </button>
                             {showResult && (
                                 <div className={cx('search-result')}>
-                                    <SearchResult products={products} />
+                                    {loading ? <p>Loading...</p> : <SearchResult products={products} />}
                                 </div>
                             )}
                         </div>

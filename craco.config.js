@@ -9,6 +9,7 @@ module.exports = {
             '~/layouts': path.resolve(__dirname, './src/layouts'),
             '~/config': path.resolve(__dirname, './src/config'),
             '~/routes': path.resolve(__dirname, './src/routes'),
+            '~/modules': path.resolve(__dirname, './src/modules'),
         },
     },
 };

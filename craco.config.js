@@ -10,6 +10,7 @@ module.exports = {
             '~/config': path.resolve(__dirname, './src/config'),
             '~/routes': path.resolve(__dirname, './src/routes'),
             '~/modules': path.resolve(__dirname, './src/modules'),
+            '~/hooks': path.resolve(__dirname, './src/hooks'),
         },
     },
 };

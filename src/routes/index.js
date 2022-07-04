@@ -1,6 +1,20 @@
 import config from '~/config';
 import { DefaultLayout } from '~/layouts';
-import { AboutUs, Cart, Home, Login, OrderCompleted, Payment, ProductDetail, Register, SearchResult } from '~/pages';
+import {
+    AboutUs,
+    Blog,
+    Cart,
+    Home,
+    Login,
+    OrderCompleted,
+    Pages,
+    Payment,
+    ProductDetail,
+    ProductsList,
+    Register,
+    SearchResult,
+    Shop,
+} from '~/pages';
 
 const routes = [
     { path: config.routes.home, layout: DefaultLayout, element: Home },
@@ -43,6 +57,26 @@ const routes = [
         path: config.routes.aboutUs,
         layout: DefaultLayout,
         element: AboutUs,
+    },
+    {
+        path: config.routes.pages,
+        layout: DefaultLayout,
+        element: Pages,
+    },
+    {
+        path: config.routes.products,
+        layout: DefaultLayout,
+        element: ProductsList,
+    },
+    {
+        path: config.routes.blog,
+        layout: DefaultLayout,
+        element: Blog,
+    },
+    {
+        path: config.routes.shop,
+        layout: DefaultLayout,
+        element: Shop,
     },
 ];
 

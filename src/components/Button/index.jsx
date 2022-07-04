@@ -3,9 +3,9 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ children, className, fullWidth = false, ...props }) {
+function Button({ children, className, ...props }) {
     return (
-        <button className={cx('wrapper', className, { 'full-width': fullWidth })} {...props}>
+        <button className={cx('wrapper', className)} {...props}>
             {children}
         </button>
     );

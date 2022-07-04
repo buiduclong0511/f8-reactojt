@@ -9,6 +9,10 @@ const config = {
         payment: '/payment',
         orderCompleted: '/order-completed',
         aboutUs: '/about-us',
+        pages: '/pages',
+        products: '/products',
+        blog: '/blog',
+        shop: '/shop',
     },
 };
 

@@ -1,0 +1,35 @@
+.heading {
+    background-color: #f6f5ff;
+    padding-top: 98px;
+    padding-bottom: 120px;
+}
+
+.title {
+    color: #101750;
+    font-size: 36px;
+    line-height: 42px;
+    margin-bottom: 7px;
+    text-transform: capitalize;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: flex-end;
+}
+
+.breadcrumb-item {
+    a {
+        text-decoration: none;
+        text-transform: capitalize;
+        color: #000;
+    }
+
+    .active {
+        color: #fb2e86;
+    }
+
+    .dot {
+        display: inline-block;
+        margin: 0 5px;
+    }
+}

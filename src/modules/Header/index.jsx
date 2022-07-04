@@ -93,7 +93,7 @@ function Header() {
                                     Home
                                 </NavLink>
                                 <NavLink
-                                    to={config.routes.orderCompleted}
+                                    to={config.routes.pages}
                                     className={({ isActive }) =>
                                         cx('nav-menu-item', {
                                             active: isActive,
@@ -103,7 +103,7 @@ function Header() {
                                     Pages
                                 </NavLink>
                                 <NavLink
-                                    to={config.routes.orderCompleted}
+                                    to={config.routes.products}
                                     className={({ isActive }) =>
                                         cx('nav-menu-item', {
                                             active: isActive,
@@ -113,7 +113,7 @@ function Header() {
                                     Products
                                 </NavLink>
                                 <NavLink
-                                    to={config.routes.orderCompleted}
+                                    to={config.routes.blog}
                                     className={({ isActive }) =>
                                         cx('nav-menu-item', {
                                             active: isActive,
@@ -123,7 +123,7 @@ function Header() {
                                     Blog
                                 </NavLink>
                                 <NavLink
-                                    to={config.routes.orderCompleted}
+                                    to={config.routes.shop}
                                     className={({ isActive }) =>
                                         cx('nav-menu-item', {
                                             active: isActive,

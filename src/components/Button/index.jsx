@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 function Button({ children, className, ...props }) {
     return (
-        <button className={cx('wrapper', className)} {...props}>
+        <button className={cx('wrapper', className, { disabled: props.disabled })} {...props}>
             {children}
         </button>
     );

@@ -3,8 +3,12 @@ import styles from './IconButton.module.scss';
 
 const cx = classNames.bind(styles);
 
-function IconButton({ children, active = false, className }) {
-    return <button className={cx('wrapper', { active }, className)}>{children}</button>;
+function IconButton({ children, active = false, className, onClick = () => {} }) {
+    return (
+        <button className={cx('wrapper', { active }, className)} onClick={onClick}>
+            {children}
+        </button>
+    );
 }
 
 export default IconButton;

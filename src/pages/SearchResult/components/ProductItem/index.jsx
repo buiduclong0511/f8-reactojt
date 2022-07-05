@@ -4,9 +4,7 @@ import styles from './ProductItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ProductItem({ data }) {
-    console.log('~ data', data);
-
+function ProductItem({ data, onClickHeart = () => {} }) {
     const thumbnail = data.images.find((image) => image.is_thumbnail);
     const discountedPrice = (data.price / 100) * (100 - data.discount);
 
@@ -31,7 +29,7 @@ function ProductItem({ data }) {
                     <IconButton className={cx('icon-button')}>
                         <img src="icons/fluent_cart-24-regular-dark.svg" alt="" />
                     </IconButton>
-                    <IconButton className={cx('icon-button')}>
+                    <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
                         <img src="icons/uil_heart-alt-dark.svg" alt="" />
                     </IconButton>
                     <IconButton className={cx('icon-button')}>

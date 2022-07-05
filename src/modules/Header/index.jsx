@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 import { productApi } from '~/api';
@@ -16,6 +16,8 @@ function Header() {
     const [products, setProducts] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -37,6 +39,11 @@ function Header() {
         [keyword],
         800,
     );
+
+    const handleClickSearchBtn = () => {
+        navigate(config.routes.searchResult + '?q=' + keyword);
+    };
+
     return (
         <>
             <div className={cx('wrapper', 'd-flex', 'align-items-center')}>
@@ -152,7 +159,7 @@ function Header() {
                                 onFocus={() => setShowResult(true)}
                                 onBlur={() => setShowResult(false)}
                             />
-                            <button className={cx('search-button')}>
+                            <button className={cx('search-button')} onClick={handleClickSearchBtn}>
                                 <img className={cx('icon')} src="icons/uil_search.svg" alt="" />
                             </button>
                             {showResult && (

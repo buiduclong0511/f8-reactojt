@@ -33,8 +33,8 @@ function Login() {
 
     const initialValues = {
         name: '',
-        email: '',
-        password: '',
+        email: 'buiduclongtest2@gmail.com',
+        password: '12345678',
         confirmPassword: '',
     };
 
@@ -42,12 +42,13 @@ function Login() {
         initialValues,
         onSubmit: async (values, { setSubmitting }) => {
             try {
+                let res;
                 if (loginMode) {
                     const body = {
                         email: values.email,
                         password: values.password,
                     };
-                    const res = await authApi.login(body);
+                    res = await authApi.login(body);
                     console.log(res);
                 } else {
                     const body = {
@@ -55,9 +56,10 @@ function Login() {
                         email: values.email,
                         password: values.password,
                     };
-                    const res = await authApi.register(body);
+                    res = await authApi.register(body);
                     console.log(res);
                 }
+                window.localStorage.setItem('token', res.data.token);
                 toast.success('Login success.');
                 navigate('/');
             } catch (err) {

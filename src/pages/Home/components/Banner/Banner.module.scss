@@ -1,0 +1,53 @@
+.background {
+    background-color: #f2f0ff;
+}
+
+.wrapper {
+    height: 764px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .lamp-img {
+        width: 158px !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .promotional-img {
+        width: 507px !important;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+    }
+}
+
+.promotion {
+    max-width: 644px;
+}
+
+.cta-btn {
+    width: 163px;
+}
+
+.sub-title {
+    color: #fb2e86;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.title {
+    font-size: 53px;
+    line-height: 82px;
+    letter-spacing: 0.015em;
+}
+
+.description {
+    color: #8a8fb9;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 28px;
+}

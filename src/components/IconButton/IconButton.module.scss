@@ -1,0 +1,18 @@
+.wrapper {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #fff;
+
+    &:hover {
+        background-color: #eee;
+    }
+
+    &.active {
+        background-color: #eee;
+    }
+}

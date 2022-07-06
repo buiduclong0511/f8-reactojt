@@ -1,0 +1,16 @@
+.indicator {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    display: inline-block;
+    margin: 0 8px;
+    transform: rotate(45deg);
+    border: 1px solid #fb2e86;
+    transition: 300ms;
+    cursor: pointer;
+    margin-bottom: 30px;
+
+    &.active {
+        background-color: #fb2e86;
+    }
+}

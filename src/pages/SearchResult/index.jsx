@@ -23,7 +23,7 @@ function SearchResult() {
 
     useEffect(() => {
         productApi.getList(keyword, true).then((res) => {
-            setProducts(res.data.data);
+            setProducts(res.data);
         });
     }, [keyword]);
 
@@ -57,7 +57,7 @@ function SearchResult() {
                 if (item.id === product.id) {
                     return {
                         ...item,
-                        followed: res.data.followed,
+                        followed: res.followed,
                     };
                 } else {
                     return item;

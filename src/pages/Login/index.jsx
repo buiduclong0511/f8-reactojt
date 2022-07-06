@@ -59,7 +59,7 @@ function Login() {
                     res = await authApi.register(body);
                     console.log(res);
                 }
-                window.localStorage.setItem('token', res.data.token);
+                window.localStorage.setItem('token', res.token);
                 toast.success('Login success.');
                 navigate('/');
             } catch (err) {

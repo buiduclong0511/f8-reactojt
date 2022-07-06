@@ -30,7 +30,7 @@ function Header() {
                 setLoading(true);
                 productApi
                     .getList(keyword)
-                    .then((res) => setProducts(res.data.data))
+                    .then((res) => setProducts(res.data))
                     .finally(() => setLoading(false));
             } else {
                 setProducts([]);

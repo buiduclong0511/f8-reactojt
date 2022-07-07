@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Container } from 'reactstrap';
+import { Container } from '~/components';
 
 import { productApi } from '~/api';
 import { BranchesList, HeadingPage } from '~/components';

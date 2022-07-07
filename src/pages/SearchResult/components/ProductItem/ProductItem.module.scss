@@ -70,8 +70,16 @@
 
 .buttons-list {
     margin-top: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .icon-button {
     margin-right: 20px;
+
+    svg {
+        path {
+            fill: #535399;
+        }
+    }
 }

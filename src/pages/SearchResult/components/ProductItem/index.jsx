@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { IconButton } from '~/components';
+import { Cart, Heart, SearchPlus } from '~/components/icons';
 import styles from './ProductItem.module.scss';
 
 const cx = classNames.bind(styles);
@@ -27,13 +28,13 @@ function ProductItem({ data, onClickHeart = () => {} }) {
                 <div className={cx('description')}>{data.description}</div>
                 <div className={cx('buttons-list')}>
                     <IconButton className={cx('icon-button')}>
-                        <img src="icons/fluent_cart-24-regular-dark.svg" alt="" />
+                        <Cart />
                     </IconButton>
                     <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
-                        <img src="icons/uil_heart-alt-dark.svg" alt="" />
+                        <Heart />
                     </IconButton>
                     <IconButton className={cx('icon-button')}>
-                        <img src="icons/uil_search-plus.svg" alt="" />
+                        <SearchPlus />
                     </IconButton>
                 </div>
             </div>

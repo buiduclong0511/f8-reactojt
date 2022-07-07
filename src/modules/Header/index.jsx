@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Container } from '~/components';
 
 import { productApi } from '~/api';
+import { Cart, ChevronDown, Envelope, Heart, Phone, User, Search } from '~/components/icons';
 import config from '~/config';
 import { useDebounce } from '~/hooks';
 import styles from './Header.module.scss';
@@ -51,33 +52,45 @@ function Header() {
                     <div className={cx('d-flex', 'justify-content-between')}>
                         <div className={cx('d-flex')}>
                             <div className={cx('contact-item')}>
-                                <img src="icons/uil_envelope-alt.svg" alt="" className={cx('icon')} />
+                                <span className={cx('icon')}>
+                                    <Envelope />
+                                </span>
                                 <span className={cx('text')}>mhhasanul@gmail.com</span>
                             </div>
                             <div className={cx('contact-item')}>
-                                <img src="icons/bx_bx-phone-call.svg" alt="" className={cx('icon')} />
+                                <span className={cx('icon')}>
+                                    <Phone />
+                                </span>
                                 <span className={cx('text')}>(12345)67890</span>
                             </div>
                         </div>
                         <div className={cx('d-flex')}>
                             <div className={cx('menu-item')}>
                                 <span className={cx('text')}>English</span>
-                                <img src="icons/akar-icons_chevron-down.svg" alt="" className={cx('icon')} />
+                                <span className={cx('icon')}>
+                                    <ChevronDown />
+                                </span>
                             </div>
                             <div className={cx('menu-item')}>
                                 <span className={cx('text')}>USD</span>
-                                <img src="icons/akar-icons_chevron-down.svg" alt="" className={cx('icon')} />
+                                <span className={cx('icon')}>
+                                    <ChevronDown />
+                                </span>
                             </div>
                             <Link to={config.routes.login} className={cx('menu-item')}>
                                 <span className={cx('text')}>Login</span>
-                                <img src="icons/carbon_user.svg" alt="" className={cx('icon')} />
+                                <span className={cx('icon')}>
+                                    <User />
+                                </span>
                             </Link>
                             <div className={cx('menu-item')}>
                                 <span className={cx('text')}>Wishlist</span>
-                                <img src="icons/uil_heart-alt.svg" alt="" className={cx('icon')} />
+                                <span className={cx('icon')}>
+                                    <Heart />
+                                </span>
                             </div>
                             <Link to={config.routes.cart} className={cx('cart-icon')}>
-                                <img src="icons/fluent_cart-24-regular.svg" alt="" />
+                                <Cart />
                             </Link>
                         </div>
                     </div>
@@ -87,7 +100,9 @@ function Header() {
                 <Container fluid="lg">
                     <div className={cx('bottom', 'd-flex', 'justify-content-between', 'align-items-center')}>
                         <div className={cx('d-flex', 'align-items-center')}>
-                            <div className={cx('logo')}>Hekto</div>
+                            <Link to={config.routes.home} className={cx('logo')}>
+                                Hekto
+                            </Link>
                             <div className={cx('d-flex', 'nav-menu')}>
                                 <NavLink
                                     to={config.routes.home}
@@ -160,7 +175,9 @@ function Header() {
                                 onBlur={() => setShowResult(false)}
                             />
                             <button className={cx('search-button')} onClick={handleClickSearchBtn}>
-                                <img className={cx('icon')} src="icons/uil_search.svg" alt="" />
+                                <span className={cx('icon')}>
+                                    <Search />
+                                </span>
                             </button>
                             {showResult && (
                                 <div className={cx('search-result')}>

@@ -6,4 +6,5 @@
 
 body {
     font-family: 'Josefin Sans', sans-serif !important;
+    overflow-x: hidden;
 }

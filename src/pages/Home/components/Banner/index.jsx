@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { Button } from '~/components';
-import { Container } from 'reactstrap';
+import { Container } from '~/components';
 import styles from './Banner.module.scss';
 
 const cx = classNames.bind(styles);

@@ -40,6 +40,11 @@
     font-size: 34px;
     line-height: 40px;
     font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+        color: #0d0e43;
+    }
 }
 
 .bottom {

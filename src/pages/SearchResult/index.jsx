@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Container } from '~/components';
 
@@ -15,6 +15,8 @@ const cx = classNames.bind(styles);
 
 function SearchResult() {
     const [products, setProducts] = useState([]);
+
+    const navigate = useNavigate();
 
     const fetchingProducts = useRef([]);
 
@@ -44,6 +46,12 @@ function SearchResult() {
 
     const handleFollow = (product) => {
         if (fetchingProducts.current.includes(product.id)) {
+            return;
+        }
+
+        const token = window.localStorage.getItem('token');
+        if (!token) {
+            navigate(config.routes.login);
             return;
         }
 

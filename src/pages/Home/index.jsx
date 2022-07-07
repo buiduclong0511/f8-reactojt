@@ -1,10 +1,12 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
 
-import { productApi, blogApi } from '~/api';
+import { blogApi, productApi } from '~/api';
 import { BranchesList, Button, Container } from '~/components';
+import config from '~/config';
 import BlogItem from './components/BlogItem';
 import FeaturedProductItem from './components/FeaturedProductItem';
 import LatestProductItem from './components/LatestProductItem';
@@ -44,6 +46,8 @@ function Home() {
     const [trendingProducts, setTrendingProducts] = useState([]);
     const [blogs, setBlogs] = useState([]);
 
+    const navigate = useNavigate();
+
     const fetchingProducts = useRef([]);
 
     useEffect(() => {
@@ -55,6 +59,12 @@ function Home() {
 
     const handleFollow = (product) => {
         if (fetchingProducts.current.includes(product.id)) {
+            return;
+        }
+
+        const token = window.localStorage.getItem('token');
+        if (!token) {
+            navigate(config.routes.login);
             return;
         }
 

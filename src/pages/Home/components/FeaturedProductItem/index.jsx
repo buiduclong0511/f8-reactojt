@@ -5,15 +5,19 @@ import styles from './FeaturedProductItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function FeaturedProductItem() {
+function FeaturedProductItem({ data, onClickHeart }) {
+    const price = data.discount ? data.price * (1 - data.discount / 100) : data.price;
+
+    const thumbnail = data.images.find((image) => image.is_thumbnail);
+
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('image')} style={{ backgroundImage: 'url(images/featured-product.png)' }}>
+            <div className={cx('image')} style={{ backgroundImage: `url(${thumbnail?.image_url})` }}>
                 <div className={cx('buttons-list')}>
                     <IconButton className={cx('icon-button')}>
                         <Cart />
                     </IconButton>
-                    <IconButton className={cx('icon-button')}>
+                    <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
                         <Heart />
                     </IconButton>
                     <IconButton className={cx('icon-button')}>
@@ -23,14 +27,14 @@ function FeaturedProductItem() {
                 <Button className={cx('view-detail-btn')}>View Details</Button>
             </div>
             <div className={cx('info')}>
-                <p className={cx('name')}>Cantilever chair</p>
+                <p className={cx('name')}>{data.name}</p>
                 <div className={cx('colors')}>
                     <div className={cx('item')} />
                     <div className={cx('item')} />
                     <div className={cx('item')} />
                 </div>
-                <p className={cx('code')}>Code - Y523201</p>
-                <p className={cx('price')}>$42.00</p>
+                <p className={cx('code')}>Code - {data.code}</p>
+                <p className={cx('price')}>${price}</p>
             </div>
         </div>
     );

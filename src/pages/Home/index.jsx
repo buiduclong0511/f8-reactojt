@@ -1,7 +1,10 @@
 import classNames from 'classnames/bind';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
-import { BranchesList, Button, Container } from '~/components';
 
+import { productApi, blogApi } from '~/api';
+import { BranchesList, Button, Container } from '~/components';
 import BlogItem from './components/BlogItem';
 import FeaturedProductItem from './components/FeaturedProductItem';
 import LatestProductItem from './components/LatestProductItem';
@@ -36,6 +39,63 @@ function Home() {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.',
         },
     ];
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+    const [latestProducts, setLatestProducts] = useState([]);
+    const [trendingProducts, setTrendingProducts] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+
+    const fetchingProducts = useRef([]);
+
+    useEffect(() => {
+        productApi.getFeaturedList().then((res) => setFeaturedProducts(res.data));
+        productApi.getLatestList().then((res) => setLatestProducts(res.data));
+        productApi.getTrendingProduct().then((res) => setTrendingProducts(res.data));
+        blogApi.getList().then((res) => setBlogs(res.data));
+    }, []);
+
+    const handleFollow = (product) => {
+        if (fetchingProducts.current.includes(product.id)) {
+            return;
+        }
+
+        const followed = product.followed;
+
+        const api = followed ? productApi.unFollow(product.id) : productApi.follow(product.id);
+        fetchingProducts.current.push(product.id);
+
+        api.then((res) => {
+            const newFeaturedProducts = featuredProducts.map((item) => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        followed: res.followed,
+                    };
+                } else {
+                    return item;
+                }
+            });
+            setFeaturedProducts(newFeaturedProducts);
+
+            const newLatestProducts = latestProducts.map((item) => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        followed: res.followed,
+                    };
+                } else {
+                    return item;
+                }
+            });
+
+            setLatestProducts(newLatestProducts);
+        })
+            .catch(() => {
+                toast.error('Have an error.');
+            })
+            .finally(() => {
+                fetchingProducts.current = fetchingProducts.current.filter((id) => id !== product.id);
+            });
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -47,18 +107,11 @@ function Home() {
                     <h3 className={cx('title')}>Featured Products</h3>
                     <div className={cx('list')}>
                         <Row lg={4}>
-                            <Col>
-                                <FeaturedProductItem />
-                            </Col>
-                            <Col>
-                                <FeaturedProductItem />
-                            </Col>
-                            <Col>
-                                <FeaturedProductItem />
-                            </Col>
-                            <Col>
-                                <FeaturedProductItem />
-                            </Col>
+                            {featuredProducts.map((product) => (
+                                <Col key={product.id}>
+                                    <FeaturedProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </div>
@@ -66,24 +119,11 @@ function Home() {
                     <h3 className={cx('title')}>Latest Products</h3>
                     <div className={cx('list')}>
                         <Row lg={3}>
-                            <Col>
-                                <LatestProductItem />
-                            </Col>
-                            <Col>
-                                <LatestProductItem />
-                            </Col>
-                            <Col>
-                                <LatestProductItem />
-                            </Col>
-                            <Col>
-                                <LatestProductItem />
-                            </Col>
-                            <Col>
-                                <LatestProductItem />
-                            </Col>
-                            <Col>
-                                <LatestProductItem />
-                            </Col>
+                            {latestProducts.map((product) => (
+                                <Col key={product.id}>
+                                    <LatestProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </div>
@@ -142,18 +182,11 @@ function Home() {
                     <div className={cx('title')}>Trending Products</div>
                     <div className={cx('list')}>
                         <Row lg={4}>
-                            <Col>
-                                <TrendingProductItem />
-                            </Col>
-                            <Col>
-                                <TrendingProductItem />
-                            </Col>
-                            <Col>
-                                <TrendingProductItem />
-                            </Col>
-                            <Col>
-                                <TrendingProductItem />
-                            </Col>
+                            {trendingProducts.map((product) => (
+                                <Col key={product.id}>
+                                    <TrendingProductItem data={product} />
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </div>
@@ -167,15 +200,11 @@ function Home() {
                     <div className={cx('title')}>Latest Blogs</div>
                     <div className={cx('list')}>
                         <Row lg={3}>
-                            <Col>
-                                <BlogItem />
-                            </Col>
-                            <Col>
-                                <BlogItem />
-                            </Col>
-                            <Col>
-                                <BlogItem />
-                            </Col>
+                            {blogs.map((blog) => (
+                                <Col key={blog.id}>
+                                    <BlogItem data={blog} />
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </Container>

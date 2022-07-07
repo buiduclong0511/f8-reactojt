@@ -11,41 +11,32 @@ const productApi = {
             url += '&all=true';
         }
 
-        const token = window.localStorage.getItem('token');
-
-        return axiosClient.get(url, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        return axiosClient.get(url);
     },
     follow(id) {
         const url = `/products/${id}/follow`;
-        const token = window.localStorage.getItem('token');
 
-        return axiosClient.post(
-            url,
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
+        return axiosClient.post(url);
     },
     unFollow(id) {
         const url = `/products/${id}/un-follow`;
-        const token = window.localStorage.getItem('token');
 
-        return axiosClient.post(
-            url,
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
+        return axiosClient.post(url);
+    },
+    getFeaturedList() {
+        const url = '/products/featured';
+
+        return axiosClient.get(url);
+    },
+    getLatestList() {
+        const url = '/products/latest';
+
+        return axiosClient.get(url);
+    },
+    getTrendingProduct() {
+        const url = '/products/featured';
+
+        return axiosClient.get(url);
     },
 };
 

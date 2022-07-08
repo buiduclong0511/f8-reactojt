@@ -1,10 +1,13 @@
+export { default as Calendar } from './Calendar';
 export { default as Cart } from './Cart';
 export { default as ChevronDown } from './ChevronDown';
 export { default as Envelope } from './Envelope';
+export { default as Facebook } from './Facebook';
 export { default as Heart } from './Heart';
+export { default as Instagram } from './Instagram';
+export { default as Pen } from './Pen';
 export { default as Phone } from './Phone';
 export { default as Search } from './Search';
 export { default as SearchPlus } from './SearchPlus';
+export { default as Twitter } from './Twitter';
 export { default as User } from './User';
-export { default as Pen } from './Pen';
-export { default as Calendar } from './Calendar';

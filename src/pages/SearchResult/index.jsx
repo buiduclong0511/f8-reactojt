@@ -50,6 +50,7 @@ function SearchResult() {
         }
 
         const token = window.localStorage.getItem('token');
+
         if (!token) {
             navigate(config.routes.login);
             return;

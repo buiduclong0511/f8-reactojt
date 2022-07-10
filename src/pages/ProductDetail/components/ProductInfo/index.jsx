@@ -6,37 +6,39 @@ import styles from './ProductInfo.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ProductInfo() {
+function ProductInfo({ data, onClickHeart = () => {} }) {
+    const images = data.images.filter((image) => !image.is_thumbnail);
+    const thumbnail = data.images.find((image) => image.is_thumbnail);
+
+    const discountedPrice = (data.price / 100) * (100 - data.discount);
+
     return (
         <div className={cx('product')}>
             <div className={cx('images')}>
                 <div className={cx('left')}>
-                    <img src="/images/product-detail-item.png" alt="" />
-                    <img src="/images/product-detail-item.png" alt="" />
-                    <img src="/images/product-detail-item.png" alt="" />
+                    {images.map((image) => (
+                        <img key={image.id} src={image.image_url} alt="" />
+                    ))}
                 </div>
                 <div className={cx('right')}>
-                    <img src="/images/product-detail-thumbnail.png" alt="" />
+                    <img src={thumbnail.image_url} alt="" />
                 </div>
             </div>
             <div className={cx('info')}>
-                <h3 className={cx('name')}>Playwood arm chair</h3>
+                <h3 className={cx('name')}>{data.name}</h3>
                 <div className={cx('price')}>
-                    <div className={cx('discounted-price')}>$32.00</div>
-                    <del className={cx('main')}>$32.00</del>
+                    <div className={cx('discounted-price')}>${discountedPrice}</div>
+                    <del className={cx('main')}>${data.price}</del>
                 </div>
                 <div className={cx('color')}>Color</div>
-                <div className={cx('description')}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tellus porttitor purus, et volutpat
-                    sit.
-                </div>
+                <div className={cx('description')}>{data.description}</div>
                 <div className={cx('actions')}>
                     <span className={cx('add-to-cart')}>Add To Cart</span>
-                    <IconButton className={cx('follow')}>
+                    <IconButton className={cx('follow')} active={data.followed} onClick={onClickHeart}>
                         <Heart />
                     </IconButton>
                 </div>
-                <div className={cx('category')}>Categories</div>
+                <div className={cx('category')}>Categories: {data.category.name}</div>
                 <div className={cx('tag')}>Tag</div>
                 <div className={cx('socials')}>
                     Share

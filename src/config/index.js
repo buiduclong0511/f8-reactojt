@@ -4,7 +4,7 @@ const config = {
         login: '/login',
         register: '/register',
         searchResult: '/search-result',
-        productDetail: '/product-detail',
+        productDetail: '/product-detail/:id',
         cart: '/cart',
         payment: '/payment',
         orderCompleted: '/order-completed',

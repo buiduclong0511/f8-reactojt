@@ -34,3 +34,13 @@
         margin-bottom: 47px;
     }
 }
+
+.product-video {
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+
+    video {
+        max-height: 600px;
+    }
+}

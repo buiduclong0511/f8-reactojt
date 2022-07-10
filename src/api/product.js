@@ -13,6 +13,11 @@ const productApi = {
 
         return axiosClient.get(url);
     },
+    show(id) {
+        const url = `/products/${id}`;
+
+        return axiosClient.get(url);
+    },
     follow(id) {
         const url = `/products/${id}/follow`;
 

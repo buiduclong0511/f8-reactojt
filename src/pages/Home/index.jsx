@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
 
@@ -119,7 +119,12 @@ function Home() {
                         <Row lg={4}>
                             {featuredProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <FeaturedProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                    <Link to={generatePath(config.routes.productDetail, { id: product.id })}>
+                                        <FeaturedProductItem
+                                            data={product}
+                                            onClickHeart={() => handleFollow(product)}
+                                        />
+                                    </Link>
                                 </Col>
                             ))}
                         </Row>
@@ -131,7 +136,9 @@ function Home() {
                         <Row lg={3}>
                             {latestProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <LatestProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                    <Link to={generatePath(config.routes.productDetail, { id: product.id })}>
+                                        <LatestProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                    </Link>
                                 </Col>
                             ))}
                         </Row>
@@ -194,7 +201,9 @@ function Home() {
                         <Row lg={4}>
                             {trendingProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <TrendingProductItem data={product} />
+                                    <Link to={generatePath(config.routes.productDetail, { id: product.id })}>
+                                        <TrendingProductItem data={product} />
+                                    </Link>
                                 </Col>
                             ))}
                         </Row>

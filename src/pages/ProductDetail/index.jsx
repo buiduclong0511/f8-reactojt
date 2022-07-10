@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { generatePath, Link, useNavigate, useParams } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 
+import { productApi } from '~/api';
 import { BranchesList, Container, HeadingPage } from '~/components';
 import config from '~/config';
 import ProductInfo from './components/ProductInfo';
@@ -17,6 +19,21 @@ const VIDEO = 'VIDEO';
 
 function ProductDetail() {
     const [tab, setTab] = useState(DESCRIPTION);
+    const [productInfo, setProductInfo] = useState(null);
+    const [moreInfo, setMoreInfo] = useState(null);
+    const [relatedProducts, setRelatedProducts] = useState([]);
+
+    const navigate = useNavigate();
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        productApi.show(id).then((res) => {
+            setProductInfo(res.data);
+            setMoreInfo(res.more_info);
+            setRelatedProducts(res.related_products);
+        });
+    }, [id]);
 
     const breadcrumb = [
         {
@@ -40,22 +57,49 @@ function ProductDetail() {
     const renderContent = () => {
         switch (tab) {
             case DESCRIPTION:
-                return <div>description</div>;
+                return <div>{moreInfo.description}</div>;
             case ADDITIONAL_INFO:
-                return <div>Additional info</div>;
+                return <div>{moreInfo.additional_info}</div>;
             case REVIEWS:
-                return <div>Review</div>;
+                return <div>{moreInfo.reviews}</div>;
             case VIDEO:
-                return <div>Video</div>;
+                return (
+                    <div className={cx('product-video')}>
+                        <video controls src={moreInfo.video}></video>
+                    </div>
+                );
             default:
         }
     };
+
+    const handleFollow = () => {
+        const token = window.localStorage.getItem('token');
+
+        if (!token) {
+            navigate(config.routes.login);
+            return;
+        }
+
+        const followed = productInfo.followed;
+        const api = followed ? productApi.unFollow(productInfo.id) : productApi.follow(productInfo.id);
+
+        api.then((res) => {
+            setProductInfo({
+                ...productInfo,
+                followed: res.followed,
+            });
+        });
+    };
+
+    if (!productInfo) {
+        return null;
+    }
 
     return (
         <HeadingPage title="Product details" breadcrumb={breadcrumb}>
             <div className={cx('product-wrapper')}>
                 <Container fluid="lg">
-                    <ProductInfo />
+                    <ProductInfo data={productInfo} onClickHeart={handleFollow} />
                 </Container>
             </div>
             <div className={cx('more-info-wrapper')}>
@@ -93,18 +137,13 @@ function ProductDetail() {
                     <div className={cx('title')}>Related Products</div>
                     <div className={cx('list')}>
                         <Row lg={4}>
-                            <Col>
-                                <RelatedProductItem />
-                            </Col>
-                            <Col>
-                                <RelatedProductItem />
-                            </Col>
-                            <Col>
-                                <RelatedProductItem />
-                            </Col>
-                            <Col>
-                                <RelatedProductItem />
-                            </Col>
+                            {relatedProducts.map((product) => (
+                                <Col key={product.id}>
+                                    <Link to={generatePath(config.routes.productDetail, { id: product.id })}>
+                                        <RelatedProductItem data={product} />
+                                    </Link>
+                                </Col>
+                            ))}
                         </Row>
                     </div>
                 </div>

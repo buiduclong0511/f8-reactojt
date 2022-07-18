@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import { Cart, Heart, SearchPlus } from '~/components/icons';
 import { IconButton } from '~/components';
 import styles from './LatestProductItem.module.scss';
+import { generatePath, Link } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -12,29 +14,31 @@ function LatestProductItem({ data, onClickHeart }) {
 
     return (
         <div className={cx('wrapper', { sale: !!data.discount })}>
-            <div className={cx('image')} style={{ backgroundImage: `url(${thumbnail?.image_url})` }}>
-                <div className={cx('buttons-list')}>
-                    <IconButton className={cx('icon-button')}>
-                        <Cart />
-                    </IconButton>
-                    <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
-                        <Heart />
-                    </IconButton>
-                    <IconButton className={cx('icon-button')}>
-                        <SearchPlus />
-                    </IconButton>
-                </div>
-                <img src="images/sale.png" alt="" className={cx('sale-img')} />
+            <div className={cx('buttons-list')}>
+                <IconButton className={cx('icon-button')}>
+                    <Cart />
+                </IconButton>
+                <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
+                    <Heart />
+                </IconButton>
+                <IconButton className={cx('icon-button')}>
+                    <SearchPlus />
+                </IconButton>
             </div>
-            <div className={cx('info')}>
-                <div className={cx('name')}>
-                    <span>{data.name}</span>
+            <Link to={generatePath(config.routes.productDetail, { id: data.id })}>
+                <div className={cx('image')} style={{ backgroundImage: `url(${thumbnail?.image_url})` }}>
+                    <img src="images/sale.png" alt="" className={cx('sale-img')} />
                 </div>
-                <div className={cx('price')}>
-                    {!!data.discount && <div className={cx('discounted-price')}>${discountedPrice}</div>}
-                    <del className={cx('main')}>${data.price}</del>
+                <div className={cx('info')}>
+                    <div className={cx('name')}>
+                        <span>{data.name}</span>
+                    </div>
+                    <div className={cx('price')}>
+                        {!!data.discount && <div className={cx('discounted-price')}>${discountedPrice}</div>}
+                        <del className={cx('main')}>${data.price}</del>
+                    </div>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 }

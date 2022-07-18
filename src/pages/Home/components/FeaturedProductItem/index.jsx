@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
+import { generatePath, Link } from 'react-router-dom';
 import { IconButton, Button } from '~/components';
 import { Cart, Heart, SearchPlus } from '~/components/icons';
+import config from '~/config';
 import styles from './FeaturedProductItem.module.scss';
 
 const cx = classNames.bind(styles);
@@ -12,30 +14,32 @@ function FeaturedProductItem({ data, onClickHeart }) {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('image')} style={{ backgroundImage: `url(${thumbnail?.image_url})` }}>
-                <div className={cx('buttons-list')}>
-                    <IconButton className={cx('icon-button')}>
-                        <Cart />
-                    </IconButton>
-                    <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
-                        <Heart />
-                    </IconButton>
-                    <IconButton className={cx('icon-button')}>
-                        <SearchPlus />
-                    </IconButton>
-                </div>
-                <Button className={cx('view-detail-btn')}>View Details</Button>
+            <div className={cx('buttons-list')}>
+                <IconButton className={cx('icon-button')}>
+                    <Cart />
+                </IconButton>
+                <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>
+                    <Heart />
+                </IconButton>
+                <IconButton className={cx('icon-button')}>
+                    <SearchPlus />
+                </IconButton>
             </div>
-            <div className={cx('info')}>
-                <p className={cx('name')}>{data.name}</p>
-                <div className={cx('colors')}>
-                    <div className={cx('item')} />
-                    <div className={cx('item')} />
-                    <div className={cx('item')} />
+            <Link to={generatePath(config.routes.productDetail, { id: data.id })}>
+                <div className={cx('image')} style={{ backgroundImage: `url(${thumbnail?.image_url})` }}>
+                    <Button className={cx('view-detail-btn')}>View Details</Button>
                 </div>
-                <p className={cx('code')}>Code - {data.code}</p>
-                <p className={cx('price')}>${price}</p>
-            </div>
+                <div className={cx('info')}>
+                    <p className={cx('name')}>{data.name}</p>
+                    <div className={cx('colors')}>
+                        <div className={cx('item')} />
+                        <div className={cx('item')} />
+                        <div className={cx('item')} />
+                    </div>
+                    <p className={cx('code')}>Code - {data.code}</p>
+                    <p className={cx('price')}>${price}</p>
+                </div>
+            </Link>
         </div>
     );
 }

@@ -119,12 +119,7 @@ function Home() {
                         <Row lg={4}>
                             {featuredProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <Link to={generatePath(config.routes.productDetail, { id: product.id })}>
-                                        <FeaturedProductItem
-                                            data={product}
-                                            onClickHeart={() => handleFollow(product)}
-                                        />
-                                    </Link>
+                                    <FeaturedProductItem data={product} onClickHeart={() => handleFollow(product)} />
                                 </Col>
                             ))}
                         </Row>
@@ -136,9 +131,7 @@ function Home() {
                         <Row lg={3}>
                             {latestProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <Link to={generatePath(config.routes.productDetail, { id: product.id })}>
-                                        <LatestProductItem data={product} onClickHeart={() => handleFollow(product)} />
-                                    </Link>
+                                    <LatestProductItem data={product} onClickHeart={() => handleFollow(product)} />
                                 </Col>
                             ))}
                         </Row>

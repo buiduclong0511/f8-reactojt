@@ -42,16 +42,19 @@ const routes = [
         path: config.routes.cart,
         layout: DefaultLayout,
         element: Cart,
+        isPrivate: true,
     },
     {
         path: config.routes.payment,
         layout: DefaultLayout,
         element: Payment,
+        isPrivate: true,
     },
     {
         path: config.routes.orderCompleted,
         layout: DefaultLayout,
         element: OrderCompleted,
+        isPrivate: true,
     },
     {
         path: config.routes.aboutUs,

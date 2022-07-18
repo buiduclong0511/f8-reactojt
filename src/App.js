@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import routes from '~/routes';
+import { PublicRoute, PrivateRoute } from '~/layouts';
 
 function App() {
     return (
@@ -11,13 +12,17 @@ function App() {
                 {routes.map((route, index) => {
                     const Element = route.element;
                     const Layout = route.layout ? route.layout : Fragment;
+                    const Guard = route.isPrivate ? PrivateRoute : PublicRoute;
+
                     return (
                         <Route
                             key={index}
                             path={route.path}
                             element={
                                 <Layout>
-                                    <Element />
+                                    <Guard>
+                                        <Element />
+                                    </Guard>
                                 </Layout>
                             }
                         />
@@ -26,12 +31,11 @@ function App() {
             </Routes>
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
-                pauseOnFocusLoss
                 draggable
                 pauseOnHover
             />

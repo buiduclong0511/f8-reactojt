@@ -16,6 +16,11 @@ const authApi = {
 
         return axiosClient.post(url);
     },
+    getCurrentUser() {
+        const url = '/auth/me';
+
+        return axiosClient.get(url);
+    },
 };
 
 export default authApi;

@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { generatePath, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
@@ -50,6 +51,8 @@ function Home() {
 
     const fetchingProducts = useRef([]);
 
+    const token = useSelector((state) => state.auth.token);
+
     useEffect(() => {
         productApi.getFeaturedList().then((res) => setFeaturedProducts(res.data));
         productApi.getLatestList().then((res) => setLatestProducts(res.data));
@@ -62,7 +65,6 @@ function Home() {
             return;
         }
 
-        const token = window.localStorage.getItem('token');
         if (!token) {
             navigate(config.routes.login);
             return;

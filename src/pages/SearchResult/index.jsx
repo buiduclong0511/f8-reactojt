@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Container } from '~/components';
 
 import { productApi } from '~/api';
-import { BranchesList, HeadingPage } from '~/components';
+import { BranchesList, Container, HeadingPage } from '~/components';
 import config from '~/config';
 import ProductItem from './components/ProductItem';
 
@@ -22,6 +22,8 @@ function SearchResult() {
 
     const location = useLocation();
     const keyword = location.search.split('=')[1];
+
+    const token = useSelector((state) => state.auth.token);
 
     useEffect(() => {
         productApi.getList(keyword, true).then((res) => {
@@ -48,8 +50,6 @@ function SearchResult() {
         if (fetchingProducts.current.includes(product.id)) {
             return;
         }
-
-        const token = window.localStorage.getItem('token');
 
         if (!token) {
             navigate(config.routes.login);

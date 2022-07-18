@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { generatePath, Link, useNavigate, useParams } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 
@@ -26,6 +27,8 @@ function ProductDetail() {
     const navigate = useNavigate();
 
     const { id } = useParams();
+
+    const token = useSelector((state) => state.auth.token);
 
     useEffect(() => {
         productApi.show(id).then((res) => {
@@ -73,8 +76,6 @@ function ProductDetail() {
     };
 
     const handleFollow = () => {
-        const token = window.localStorage.getItem('token');
-
         if (!token) {
             navigate(config.routes.login);
             return;

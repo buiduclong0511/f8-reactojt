@@ -1,12 +1,15 @@
 import classNames from 'classnames/bind';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { authApi } from '~/api';
+
 import { BranchesList, Button, HeadingPage, Input } from '~/components';
 import config from '~/config';
+import { login, register } from '~/redux/slices';
+
 import styles from './Login.module.scss';
 
 const cx = classNames.bind(styles);
@@ -15,6 +18,8 @@ function Login() {
     const [loginMode, setLoginMode] = useState(true);
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const breadcrumb = [
         {
@@ -42,28 +47,28 @@ function Login() {
         initialValues,
         onSubmit: async (values, { setSubmitting }) => {
             try {
-                let res;
                 if (loginMode) {
                     const body = {
                         email: values.email,
                         password: values.password,
                     };
-                    res = await authApi.login(body);
-                    console.log(res);
+                    await dispatch(login(body)).unwrap();
                 } else {
                     const body = {
                         name: values.name,
                         email: values.email,
                         password: values.password,
                     };
-                    res = await authApi.register(body);
-                    console.log(res);
+                    await dispatch(register(body));
                 }
-                window.localStorage.setItem('token', res.token);
                 toast.success('Login success.');
                 navigate('/');
             } catch (err) {
-                toast.error('Something went wrong!');
+                if (err?.response?.data?.message) {
+                    toast.error(err.response.data.message);
+                } else {
+                    toast.error('Have an error');
+                }
             } finally {
                 setSubmitting(false);
             }

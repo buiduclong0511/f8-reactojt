@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Container } from '~/components';
 
@@ -7,8 +8,10 @@ import { productApi } from '~/api';
 import { Cart, ChevronDown, Envelope, Heart, Logout, Phone, Search, User } from '~/components/icons';
 import config from '~/config';
 import { useDebounce } from '~/hooks';
+import { logout } from '~/redux/slices';
 import styles from './Header.module.scss';
 import SearchResult from './SearchResult';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -18,13 +21,24 @@ function Header() {
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const loggedIn = true;
-
     const navigate = useNavigate();
+
+    const userInfo = useSelector((state) => state.auth.userInfo);
+
+    const dispatch = useDispatch();
 
     const handleChange = (event) => {
         const value = event.target.value;
         setKeyword(value);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await dispatch(logout()).unwrap();
+            navigate(config.routes.login);
+        } catch (err) {
+            toast.error('Have an error.');
+        }
     };
 
     useDebounce(
@@ -79,20 +93,20 @@ function Header() {
                                     <ChevronDown />
                                 </span>
                             </div>
-                            {!loggedIn ? (
+                            {!!userInfo ? (
+                                <div className={cx('menu-item')}>
+                                    <span className={cx('text')}>{userInfo.name}</span>
+                                    <span className={cx('icon')} onClick={handleLogout}>
+                                        <Logout />
+                                    </span>
+                                </div>
+                            ) : (
                                 <Link to={config.routes.login} className={cx('menu-item')}>
                                     <span className={cx('text')}>Login</span>
                                     <span className={cx('icon')}>
                                         <User />
                                     </span>
                                 </Link>
-                            ) : (
-                                <div className={cx('menu-item')}>
-                                    <span className={cx('text')}>Bùi Đức Long</span>
-                                    <span className={cx('icon')}>
-                                        <Logout />
-                                    </span>
-                                </div>
                             )}
                             <div className={cx('menu-item')}>
                                 <span className={cx('text')}>Wishlist</span>

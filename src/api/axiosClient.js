@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import store from '~/redux';
+
 const axiosClient = axios.create({
     baseURL: 'https://reactojt-api.fullstack.edu.vn/api/',
 });
@@ -9,7 +11,7 @@ axiosClient.interceptors.request.use(
     function (config) {
         // Do something before request is sent
 
-        const token = window.localStorage.getItem('token');
+        const token = store.getState().auth.token;
 
         config.headers = {
             Authorization: `Bearer ${token}`,

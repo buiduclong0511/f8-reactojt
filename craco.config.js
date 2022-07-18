@@ -12,6 +12,7 @@ module.exports = {
             '~/modules': path.resolve(__dirname, './src/modules'),
             '~/hooks': path.resolve(__dirname, './src/hooks'),
             '~/api': path.resolve(__dirname, './src/api'),
+            '~/redux': path.resolve(__dirname, './src/redux'),
         },
     },
 };

@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Container } from '~/components';
 
 import { productApi } from '~/api';
-import { Cart, ChevronDown, Envelope, Heart, Phone, User, Search } from '~/components/icons';
+import { Cart, ChevronDown, Envelope, Heart, Logout, Phone, Search, User } from '~/components/icons';
 import config from '~/config';
 import { useDebounce } from '~/hooks';
 import styles from './Header.module.scss';
@@ -17,6 +17,8 @@ function Header() {
     const [products, setProducts] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const loggedIn = true;
 
     const navigate = useNavigate();
 
@@ -77,12 +79,21 @@ function Header() {
                                     <ChevronDown />
                                 </span>
                             </div>
-                            <Link to={config.routes.login} className={cx('menu-item')}>
-                                <span className={cx('text')}>Login</span>
-                                <span className={cx('icon')}>
-                                    <User />
-                                </span>
-                            </Link>
+                            {!loggedIn ? (
+                                <Link to={config.routes.login} className={cx('menu-item')}>
+                                    <span className={cx('text')}>Login</span>
+                                    <span className={cx('icon')}>
+                                        <User />
+                                    </span>
+                                </Link>
+                            ) : (
+                                <div className={cx('menu-item')}>
+                                    <span className={cx('text')}>Bùi Đức Long</span>
+                                    <span className={cx('icon')}>
+                                        <Logout />
+                                    </span>
+                                </div>
+                            )}
                             <div className={cx('menu-item')}>
                                 <span className={cx('text')}>Wishlist</span>
                                 <span className={cx('icon')}>

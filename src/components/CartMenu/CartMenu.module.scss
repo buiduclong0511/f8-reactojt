@@ -1,0 +1,43 @@
+.cart-item {
+    display: flex;
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.info {
+    flex: 1;
+    padding-left: 16px;
+
+    .name {
+        max-width: 180px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .price {
+        font-weight: 300;
+        font-size: 14px;
+    }
+}
+
+.wrapper {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+.goto-cart {
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    color: #000;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

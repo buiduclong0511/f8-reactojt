@@ -1,7 +1,12 @@
 export { default as BranchesList } from './BranchesList';
 export { default as Button } from './Button';
+export { default as CartMenu } from './CartMenu';
 export { default as Container } from './Container';
 export { default as HeadingPage } from './HeadingPage';
 export { default as IconButton } from './IconButton';
+export { default as Image } from './Image';
 export { default as Input } from './Input';
+export { default as Menu } from './Menu';
+export { default as MenuItem } from './Menu/MenuItem';
+export { default as QuantityInput } from './QuantityInput';
 export { default as ScrollToTop } from './ScrollToTop';

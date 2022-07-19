@@ -1,0 +1,41 @@
+.heading {
+    font-size: 20px;
+    line-height: 23px;
+    color: #1d3178;
+    font-weight: 700;
+    margin-bottom: 42px;
+    text-align: center;
+}
+
+.main {
+    background: #f4f4fc;
+    border-radius: 3px;
+    padding: 34px 23px;
+    width: 371px;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 13px;
+    border-bottom: 2px solid #e8e6f1;
+    margin-bottom: 34px;
+}
+
+.description {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #8a91ab;
+    display: flex;
+    align-items: center;
+
+    span {
+        margin-left: 7px;
+    }
+}
+
+.submit-button {
+    margin-top: 35px;
+    background-color: #19d16f;
+}

@@ -1,17 +1,18 @@
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Container } from '~/components';
+import { toast } from 'react-toastify';
 
 import { productApi } from '~/api';
+import { CartMenu, Container } from '~/components';
 import { Cart, ChevronDown, Envelope, Heart, Logout, Phone, Search, User } from '~/components/icons';
 import config from '~/config';
 import { useDebounce } from '~/hooks';
 import { logout } from '~/redux/slices';
 import styles from './Header.module.scss';
 import SearchResult from './SearchResult';
-import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -114,9 +115,16 @@ function Header() {
                                     <Heart />
                                 </span>
                             </div>
-                            <Link to={config.routes.cart} className={cx('cart-icon')}>
-                                <Cart />
-                            </Link>
+                            <Tippy
+                                render={() => <CartMenu />}
+                                interactive
+                                appendTo={() => document.body}
+                                placement="bottom-end"
+                            >
+                                <Link to={config.routes.cart} className={cx('cart-icon')}>
+                                    <Cart />
+                                </Link>
+                            </Tippy>
                         </div>
                     </div>
                 </Container>

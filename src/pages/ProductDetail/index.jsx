@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { generatePath, Link, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
 
 import { productApi } from '~/api';
@@ -9,6 +10,7 @@ import { BranchesList, Container, HeadingPage } from '~/components';
 import config from '~/config';
 import ProductInfo from './components/ProductInfo';
 import RelatedProductItem from './components/RelatedProductItem';
+
 import styles from './ProductDetail.module.scss';
 
 const cx = classNames.bind(styles);
@@ -23,6 +25,9 @@ function ProductDetail() {
     const [productInfo, setProductInfo] = useState(null);
     const [moreInfo, setMoreInfo] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
+
+    const isFetchingFollow = useRef(false);
+    const isFetchingAddToCart = useRef(false);
 
     const navigate = useNavigate();
 
@@ -76,10 +81,16 @@ function ProductDetail() {
     };
 
     const handleFollow = () => {
+        if (isFetchingFollow.current) {
+            return;
+        }
+
         if (!token) {
             navigate(config.routes.login);
             return;
         }
+
+        isFetchingFollow.current = true;
 
         const followed = productInfo.followed;
         const api = followed ? productApi.unFollow(productInfo.id) : productApi.follow(productInfo.id);
@@ -89,7 +100,38 @@ function ProductDetail() {
                 ...productInfo,
                 followed: res.followed,
             });
-        });
+        })
+            .catch((err) => {
+                toast.error('Have an error.');
+            })
+            .finally(() => (isFetchingFollow.current = false));
+    };
+
+    const handleAddToCart = () => {
+        if (isFetchingAddToCart.current) {
+            return;
+        }
+
+        if (!token) {
+            navigate(config.routes.login);
+            return;
+        }
+
+        isFetchingAddToCart.current = true;
+
+        const addedToCart = productInfo.added_to_cart;
+        const api = addedToCart ? productApi.removeFromCart(productInfo.id) : productApi.addToCart(productInfo.id);
+
+        api.then((res) => {
+            setProductInfo({
+                ...productInfo,
+                added_to_cart: res.added_to_cart,
+            });
+        })
+            .catch((err) => {
+                toast.error('Have an error.');
+            })
+            .finally(() => (isFetchingAddToCart.current = false));
     };
 
     if (!productInfo) {
@@ -100,7 +142,7 @@ function ProductDetail() {
         <HeadingPage title="Product details" breadcrumb={breadcrumb}>
             <div className={cx('product-wrapper')}>
                 <Container fluid="lg">
-                    <ProductInfo data={productInfo} onClickHeart={handleFollow} />
+                    <ProductInfo data={productInfo} onClickHeart={handleFollow} onClickCart={handleAddToCart} />
                 </Container>
             </div>
             <div className={cx('more-info-wrapper')}>

@@ -7,7 +7,7 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 
-function LatestProductItem({ data, onClickHeart }) {
+function LatestProductItem({ data, onClickHeart, onClickCart }) {
     const discountedPrice = data.discount ? data.price * (1 - data.discount / 100) : data.price;
 
     const thumbnail = data.images.find((image) => image.is_thumbnail);
@@ -15,7 +15,7 @@ function LatestProductItem({ data, onClickHeart }) {
     return (
         <div className={cx('wrapper', { sale: !!data.discount })}>
             <div className={cx('buttons-list')}>
-                <IconButton className={cx('icon-button')}>
+                <IconButton className={cx('icon-button')} active={data.added_to_cart} onClick={onClickCart}>
                     <Cart />
                 </IconButton>
                 <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>

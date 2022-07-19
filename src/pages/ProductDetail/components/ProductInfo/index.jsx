@@ -6,7 +6,7 @@ import styles from './ProductInfo.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ProductInfo({ data, onClickHeart = () => {} }) {
+function ProductInfo({ data, onClickCart = () => {}, onClickHeart = () => {} }) {
     const images = data.images.filter((image) => !image.is_thumbnail);
     const thumbnail = data.images.find((image) => image.is_thumbnail);
 
@@ -33,7 +33,9 @@ function ProductInfo({ data, onClickHeart = () => {} }) {
                 <div className={cx('color')}>Color</div>
                 <div className={cx('description')}>{data.description}</div>
                 <div className={cx('actions')}>
-                    <span className={cx('add-to-cart')}>Add To Cart</span>
+                    <span className={cx('add-to-cart')} onClick={onClickCart}>
+                        {data.added_to_cart ? 'Added' : 'Add'} To Cart
+                    </span>
                     <IconButton className={cx('follow')} active={data.followed} onClick={onClickHeart}>
                         <Heart />
                     </IconButton>

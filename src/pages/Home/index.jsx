@@ -49,9 +49,10 @@ function Home() {
 
     const navigate = useNavigate();
 
-    const fetchingProducts = useRef([]);
+    const fetchingFollowProducts = useRef([]);
+    const fetchingAddToCart = useRef([]);
 
-    const token = useSelector(state =>state.auth.token)
+    const token = useSelector((state) => state.auth.token);
 
     useEffect(() => {
         productApi.getFeaturedList().then((res) => setFeaturedProducts(res.data));
@@ -61,7 +62,7 @@ function Home() {
     }, []);
 
     const handleFollow = (product) => {
-        if (fetchingProducts.current.includes(product.id)) {
+        if (fetchingFollowProducts.current.includes(product.id)) {
             return;
         }
 
@@ -73,7 +74,7 @@ function Home() {
         const followed = product.followed;
 
         const api = followed ? productApi.unFollow(product.id) : productApi.follow(product.id);
-        fetchingProducts.current.push(product.id);
+        fetchingFollowProducts.current.push(product.id);
 
         api.then((res) => {
             const newFeaturedProducts = featuredProducts.map((item) => {
@@ -105,7 +106,55 @@ function Home() {
                 toast.error('Have an error.');
             })
             .finally(() => {
-                fetchingProducts.current = fetchingProducts.current.filter((id) => id !== product.id);
+                fetchingFollowProducts.current = fetchingFollowProducts.current.filter((id) => id !== product.id);
+            });
+    };
+
+    const handleAddToCart = (product) => {
+        if (fetchingAddToCart.current.includes(product.id)) {
+            return;
+        }
+        if (!token) {
+            navigate(config.routes.login);
+            return;
+        }
+
+        fetchingAddToCart.current.push(product.id);
+
+        const addedToCart = product.added_to_cart;
+        const api = addedToCart ? productApi.removeFromCart(product.id) : productApi.addToCart(product.id);
+
+        api.then((res) => {
+            const newFeaturedProducts = featuredProducts.map((item) => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        added_to_cart: res.added_to_cart,
+                    };
+                } else {
+                    return item;
+                }
+            });
+            setFeaturedProducts(newFeaturedProducts);
+
+            const newLatestProducts = latestProducts.map((item) => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        added_to_cart: res.added_to_cart,
+                    };
+                } else {
+                    return item;
+                }
+            });
+
+            setLatestProducts(newLatestProducts);
+        })
+            .catch(() => {
+                toast.error('Have an error.');
+            })
+            .finally(() => {
+                fetchingAddToCart.current = fetchingAddToCart.current.filter((id) => id !== product.id);
             });
     };
 
@@ -121,7 +170,11 @@ function Home() {
                         <Row lg={4}>
                             {featuredProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <FeaturedProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                    <FeaturedProductItem
+                                        data={product}
+                                        onClickHeart={() => handleFollow(product)}
+                                        onClickCart={() => handleAddToCart(product)}
+                                    />
                                 </Col>
                             ))}
                         </Row>
@@ -133,7 +186,11 @@ function Home() {
                         <Row lg={3}>
                             {latestProducts.map((product) => (
                                 <Col key={product.id}>
-                                    <LatestProductItem data={product} onClickHeart={() => handleFollow(product)} />
+                                    <LatestProductItem
+                                        data={product}
+                                        onClickHeart={() => handleFollow(product)}
+                                        onClickCart={() => handleAddToCart(product)}
+                                    />
                                 </Col>
                             ))}
                         </Row>

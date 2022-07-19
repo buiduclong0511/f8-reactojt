@@ -18,7 +18,8 @@ function SearchResult() {
 
     const navigate = useNavigate();
 
-    const fetchingProducts = useRef([]);
+    const fetchingFollowProducts = useRef([]);
+    const fetchingAddToCart = useRef([]);
 
     const location = useLocation();
     const keyword = location.search.split('=')[1];
@@ -47,7 +48,7 @@ function SearchResult() {
     ];
 
     const handleFollow = (product) => {
-        if (fetchingProducts.current.includes(product.id)) {
+        if (fetchingFollowProducts.current.includes(product.id)) {
             return;
         }
 
@@ -59,7 +60,7 @@ function SearchResult() {
         const followed = product.followed;
 
         const api = followed ? productApi.unFollow(product.id) : productApi.follow(product.id);
-        fetchingProducts.current.push(product.id);
+        fetchingFollowProducts.current.push(product.id);
 
         api.then((res) => {
             const newProducts = products.map((item) => {
@@ -79,7 +80,43 @@ function SearchResult() {
                 toast.error('Have an error.');
             })
             .finally(() => {
-                fetchingProducts.current = fetchingProducts.current.filter((id) => id !== product.id);
+                fetchingFollowProducts.current = fetchingFollowProducts.current.filter((id) => id !== product.id);
+            });
+    };
+
+    const handleAddToCart = (product) => {
+        if (fetchingAddToCart.current.includes(product.id)) {
+            return;
+        }
+
+        if (!token) {
+            navigate(config.routes.login);
+            return;
+        }
+
+        fetchingAddToCart.current.push(product.id);
+
+        const addedToCart = product.added_to_cart;
+        const api = addedToCart ? productApi.removeFromCart(product.id) : productApi.addToCart(product.id);
+
+        api.then((res) => {
+            const newProducts = products.map((item) => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        added_to_cart: res.added_to_cart,
+                    };
+                } else {
+                    return item;
+                }
+            });
+            setProducts(newProducts);
+        })
+            .catch((err) => {
+                toast.error('Have an error.');
+            })
+            .finally(() => {
+                fetchingAddToCart.current = fetchingAddToCart.current.filter((id) => id !== product.id);
             });
     };
 
@@ -89,7 +126,12 @@ function SearchResult() {
                 <Container fluid="lg">
                     <div className={cx('products-list')}>
                         {products.map((product) => (
-                            <ProductItem key={product.id} data={product} onClickHeart={() => handleFollow(product)} />
+                            <ProductItem
+                                key={product.id}
+                                data={product}
+                                onClickHeart={() => handleFollow(product)}
+                                onClickCart={() => handleAddToCart(product)}
+                            />
                         ))}
                     </div>
                 </Container>

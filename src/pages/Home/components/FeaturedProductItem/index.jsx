@@ -7,7 +7,7 @@ import styles from './FeaturedProductItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function FeaturedProductItem({ data, onClickHeart }) {
+function FeaturedProductItem({ data, onClickHeart, onClickCart }) {
     const price = data.discount ? data.price * (1 - data.discount / 100) : data.price;
 
     const thumbnail = data.images.find((image) => image.is_thumbnail);
@@ -15,7 +15,7 @@ function FeaturedProductItem({ data, onClickHeart }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('buttons-list')}>
-                <IconButton className={cx('icon-button')}>
+                <IconButton className={cx('icon-button')} active={data.added_to_cart} onClick={onClickCart}>
                     <Cart />
                 </IconButton>
                 <IconButton className={cx('icon-button')} active={data.followed} onClick={onClickHeart}>

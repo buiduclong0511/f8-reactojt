@@ -43,6 +43,16 @@ const productApi = {
 
         return axiosClient.get(url);
     },
+    addToCart(id) {
+        const url = `/products/${id}/add-to-cart`;
+
+        return axiosClient.post(url);
+    },
+    removeFromCart(id) {
+        const url = `/products/${id}/remove-from-cart`;
+
+        return axiosClient.post(url);
+    },
 };
 
 export default productApi;

@@ -33,18 +33,18 @@ const logout = createAsyncThunk('auth/logout', async (body, { rejectWithValue })
     }
 });
 
+const getUserInfo = createAsyncThunk('auth/getUserInfo', async (body, { rejectWithValue }) => {
+    try {
+        const res = await authApi.getCurrentUser();
+        return res.data;
+    } catch (err) {
+        return rejectWithValue(err);
+    }
+});
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {
-        setUserInfo(state, action) {
-            state.userInfo = action.payload;
-        },
-        clearUserInfo(state) {
-            state.userInfo = null;
-            state.token = null;
-        },
-    },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
             state.userInfo = action.payload.data;
@@ -60,11 +60,17 @@ const authSlice = createSlice({
             state.userInfo = null;
             state.token = null;
         });
+
+        builder.addCase(getUserInfo.fulfilled, (state, action) => {
+            state.userInfo = action.payload;
+        });
+        builder.addCase(getUserInfo.rejected, (state) => {
+            state.userInfo = null;
+            state.token = null;
+        });
     },
 });
 
-const { setUserInfo, clearUserInfo } = authSlice.actions;
-
 export default authSlice.reducer;
 
-export { login, register, logout, setUserInfo, clearUserInfo };
+export { login, register, logout, getUserInfo };

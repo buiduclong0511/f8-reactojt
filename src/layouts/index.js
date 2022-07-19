@@ -1,2 +1,2 @@
 export { default as DefaultLayout } from './DefaultLayout';
-export * from './Guard';
+export { default as VerifyLoggedIn } from './VerifyLoggedIn';

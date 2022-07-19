@@ -1,18 +1,27 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { getUserInfo } from '~/redux/slices';
+import { VerifyLoggedIn } from '~/layouts';
 import routes from '~/routes';
-import { PublicRoute, PrivateRoute } from '~/layouts';
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUserInfo());
+    }, [dispatch]);
+
     return (
         <Router>
             <Routes>
                 {routes.map((route, index) => {
                     const Element = route.element;
                     const Layout = route.layout ? route.layout : Fragment;
-                    const Guard = route.isPrivate ? PrivateRoute : PublicRoute;
+                    const isPrivate = !!route.isPrivate;
 
                     return (
                         <Route
@@ -20,9 +29,8 @@ function App() {
                             path={route.path}
                             element={
                                 <Layout>
-                                    <Guard>
-                                        <Element />
-                                    </Guard>
+                                    {isPrivate && <VerifyLoggedIn />}
+                                    <Element />
                                 </Layout>
                             }
                         />

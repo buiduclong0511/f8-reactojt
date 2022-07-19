@@ -51,7 +51,7 @@ function Home() {
 
     const fetchingProducts = useRef([]);
 
-    const token = useSelector((state) => state.auth.token);
+    const token = useSelector(state =>state.auth.token)
 
     useEffect(() => {
         productApi.getFeaturedList().then((res) => setFeaturedProducts(res.data));

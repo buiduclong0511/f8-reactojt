@@ -1,10 +1,11 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
 
+import { getUnpaidCart } from '~/redux/slices';
 import { blogApi, productApi } from '~/api';
 import { BranchesList, Button, Container } from '~/components';
 import config from '~/config';
@@ -53,6 +54,7 @@ function Home() {
     const fetchingAddToCart = useRef([]);
 
     const token = useSelector((state) => state.auth.token);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         productApi.getFeaturedList().then((res) => setFeaturedProducts(res.data));
@@ -125,6 +127,7 @@ function Home() {
         const api = addedToCart ? productApi.removeFromCart(product.id) : productApi.addToCart(product.id);
 
         api.then((res) => {
+            dispatch(getUnpaidCart());
             const newFeaturedProducts = featuredProducts.map((item) => {
                 if (item.id === product.id) {
                     return {

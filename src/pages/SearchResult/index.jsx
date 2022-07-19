@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { productApi } from '~/api';
 import { BranchesList, Container, HeadingPage } from '~/components';
 import config from '~/config';
+import { getUnpaidCart } from '~/redux/slices';
 import ProductItem from './components/ProductItem';
 
 import styles from './SearchResult.module.scss';
@@ -25,6 +26,7 @@ function SearchResult() {
     const keyword = location.search.split('=')[1];
 
     const token = useSelector((state) => state.auth.token);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         productApi.getList(keyword, true).then((res) => {
@@ -100,6 +102,7 @@ function SearchResult() {
         const api = addedToCart ? productApi.removeFromCart(product.id) : productApi.addToCart(product.id);
 
         api.then((res) => {
+            dispatch(getUnpaidCart());
             const newProducts = products.map((item) => {
                 if (item.id === product.id) {
                     return {

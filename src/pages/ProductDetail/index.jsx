@@ -1,10 +1,11 @@
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Col, Row } from 'reactstrap';
 
+import { getUnpaidCart } from '~/redux/slices';
 import { productApi } from '~/api';
 import { BranchesList, Container, HeadingPage } from '~/components';
 import config from '~/config';
@@ -34,6 +35,7 @@ function ProductDetail() {
     const { id } = useParams();
 
     const token = useSelector((state) => state.auth.token);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         productApi.show(id).then((res) => {
@@ -123,6 +125,7 @@ function ProductDetail() {
         const api = addedToCart ? productApi.removeFromCart(productInfo.id) : productApi.addToCart(productInfo.id);
 
         api.then((res) => {
+            dispatch(getUnpaidCart());
             setProductInfo({
                 ...productInfo,
                 added_to_cart: res.added_to_cart,

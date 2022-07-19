@@ -120,6 +120,7 @@ function Header() {
                                 interactive
                                 appendTo={() => document.body}
                                 placement="bottom-end"
+                                delay={[0, 150]}
                             >
                                 <Link to={config.routes.cart} className={cx('cart-icon')}>
                                     <Cart />

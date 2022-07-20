@@ -1,0 +1,49 @@
+.wrapper {
+    padding: 180px 180px 0;
+}
+
+.order-success {
+    text-align: center;
+    border-bottom: 1px dashed #ccc;
+    border-left: 1px dashed #ccc;
+    position: relative;
+
+    .icon-success {
+        margin-bottom: 22px;
+    }
+
+    .title {
+        font-size: 36px;
+        line-height: 42px;
+        color: #0d134e;
+        margin-bottom: 28px;
+    }
+
+    .description {
+        color: #a9acc6;
+        font-size: 16px;
+        line-height: 29px;
+        margin-top: 12px;
+    }
+
+    .cta-btn {
+        white-space: nowrap;
+        padding: auto 36px;
+        width: min-content;
+        margin: 41px auto 65px;
+    }
+    .icon-clock,
+    .icon-checklist {
+        position: absolute;
+    }
+
+    .icon-clock {
+        top: -47px;
+        left: -47px;
+    }
+
+    .icon-checklist {
+        right: -35px;
+        bottom: -35px;
+    }
+}

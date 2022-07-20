@@ -1,7 +1,9 @@
 export { default as Calendar } from './Calendar';
 export { default as Cart } from './Cart';
 export { default as Checked } from './Checked';
+export { default as Checklist } from './Checklist';
 export { default as ChevronDown } from './ChevronDown';
+export { default as Clock } from './Clock';
 export { default as Envelope } from './Envelope';
 export { default as Facebook } from './Facebook';
 export { default as Heart } from './Heart';
@@ -11,6 +13,7 @@ export { default as Pen } from './Pen';
 export { default as Phone } from './Phone';
 export { default as Search } from './Search';
 export { default as SearchPlus } from './SearchPlus';
+export { default as Success } from './Success';
 export { default as Times } from './Times';
 export { default as Twitter } from './Twitter';
 export { default as User } from './User';

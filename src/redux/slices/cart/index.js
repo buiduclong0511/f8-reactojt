@@ -62,6 +62,12 @@ const cartSlice = createSlice({
                 }
             });
         },
+        clearCart: (state) => {
+            state.id = null;
+            state.products = [];
+            state.subTotal = 0;
+            state.total = 0;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getUnpaidCart.fulfilled, (state, action) => {
@@ -87,7 +93,7 @@ const cartSlice = createSlice({
     },
 });
 
-const { deleteProduct, incrementQuantity, decrementQuantity } = cartSlice.actions;
+const { deleteProduct, incrementQuantity, decrementQuantity, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
-export { getUnpaidCart, deleteProduct, incrementQuantity, decrementQuantity, updateUnpaidCart };
+export { getUnpaidCart, deleteProduct, incrementQuantity, decrementQuantity, updateUnpaidCart, clearCart };

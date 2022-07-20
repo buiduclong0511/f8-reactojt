@@ -1,18 +1,26 @@
 import classNames from 'classnames/bind';
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { orderApi } from '~/api';
+import { clearCart } from '~/redux/slices';
 import { CartTotal, Container, HeadingPage, Input } from '~/components';
 import config from '~/config';
 import { orderValidation } from '~/validations';
 import CartItem from './components/CartItem';
 
 import styles from './Payment.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function Payment() {
     const unpaidCart = useSelector((state) => state.cart);
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     const breadcrumb = [
         {
@@ -41,8 +49,19 @@ function Payment() {
 
     const { values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting } = useFormik({
         initialValues,
-        onSubmit: (values) => {
-            console.log('~ values', values);
+        onSubmit: async (values) => {
+            try {
+                const body = {
+                    cart_id: unpaidCart.id,
+                    shipping_info: values,
+                };
+                await orderApi.create(body);
+                dispatch(clearCart());
+                toast.success('Order success.');
+                navigate(config.routes.orderCompleted);
+            } catch (err) {
+                toast.error('Have an error.');
+            }
         },
         validationSchema: orderValidation,
     });

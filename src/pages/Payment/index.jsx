@@ -1,7 +1,10 @@
 import classNames from 'classnames/bind';
+import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
-import { CartTotal, HeadingPage, Container, Input } from '~/components';
+
+import { CartTotal, Container, HeadingPage, Input } from '~/components';
 import config from '~/config';
+import { orderValidation } from '~/validations';
 import CartItem from './components/CartItem';
 
 import styles from './Payment.module.scss';
@@ -26,6 +29,24 @@ function Payment() {
         },
     ];
 
+    const initialValues = {
+        contact: '',
+        first_name: '',
+        last_name: '',
+        address: '',
+        description: '',
+        city: '',
+        postal_code: '',
+    };
+
+    const { values, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting } = useFormik({
+        initialValues,
+        onSubmit: (values) => {
+            console.log('~ values', values);
+        },
+        validationSchema: orderValidation,
+    });
+
     return (
         <HeadingPage title="Payment" breadcrumb={breadcrumb}>
             <Container fluid="lg">
@@ -36,9 +57,12 @@ function Payment() {
                             className={cx('input')}
                             variant="secondary"
                             label="Email or mobile phone number"
-                            touched
-                            error="Email is invalid"
-                            name="email"
+                            value={values.contact}
+                            touched={touched.contact}
+                            error={errors.contact}
+                            name="contact"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         <br />
                         <br />
@@ -50,9 +74,12 @@ function Payment() {
                                     className={cx('input')}
                                     variant="secondary"
                                     label="First name"
-                                    touched
-                                    error="First name is invalid"
-                                    name="firstName"
+                                    value={values.first_name}
+                                    touched={touched.first_name}
+                                    error={errors.first_name}
+                                    name="first_name"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             </div>
                             <div className={cx('flex-fill', 'last-name-input')}>
@@ -60,9 +87,12 @@ function Payment() {
                                     className={cx('input')}
                                     variant="secondary"
                                     label="Last name"
-                                    touched
-                                    error="Last name is invalid"
-                                    name="lastName"
+                                    value={values.last_name}
+                                    touched={touched.last_name}
+                                    error={errors.last_name}
+                                    name="last_name"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
                                 />
                             </div>
                         </div>
@@ -70,33 +100,45 @@ function Payment() {
                             className={cx('input')}
                             variant="secondary"
                             label="Address"
-                            touched
-                            error="Address is invalid"
+                            value={values.address}
+                            touched={touched.address}
+                            error={errors.address}
                             name="address"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         <Input
                             className={cx('input')}
                             variant="secondary"
                             label="Apartment, suit, e.t.c (optinal)"
-                            touched
-                            error="Apartment is invalid"
-                            name="apartment"
+                            value={values.description}
+                            touched={touched.description}
+                            error={errors.description}
+                            name="description"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         <Input
                             className={cx('input')}
                             variant="secondary"
                             label="City"
-                            touched
-                            error="City is invalid"
+                            value={values.city}
+                            touched={touched.city}
+                            error={errors.city}
                             name="city"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                         <Input
                             className={cx('input')}
                             variant="secondary"
                             label="Postal Code"
-                            touched
-                            error="Postal Code is invalid"
-                            name="postalCode"
+                            value={values.postal_code}
+                            touched={touched.postal_code}
+                            error={errors.postal_code}
+                            name="postal_code"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                     </div>
                     <div className={cx('cart-info')}>
@@ -108,7 +150,8 @@ function Payment() {
                             showHeading={false}
                             total={unpaidCart.total}
                             subTotal={unpaidCart.subTotal}
-                            disabledSubmit={!unpaidCart.products.length}
+                            disabledSubmit={!unpaidCart.products.length || isSubmitting}
+                            onSubmit={handleSubmit}
                         />
                     </div>
                 </div>

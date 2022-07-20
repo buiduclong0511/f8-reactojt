@@ -13,17 +13,20 @@ function CartMenu() {
     return (
         <Menu>
             <div className={cx('wrapper')}>
-                {products.map((product) => (
-                    <MenuItem key={product.id} className={cx('cart-item')}>
-                        <img src={product.thumbnail_url} alt="" className={cx('img')} />
-                        <div className={cx('info')}>
-                            <div className={cx('name')}>{product.name}</div>
-                            <div className={cx('price')}>
-                                ${product.price} x {product.amount}
+                {products.map((product) => {
+                    const price = (product.price * (100 - product.discount)) / 100;
+                    return (
+                        <MenuItem key={product.id} className={cx('cart-item')}>
+                            <img src={product.thumbnail_url} alt="" className={cx('img')} />
+                            <div className={cx('info')}>
+                                <div className={cx('name')}>{product.name}</div>
+                                <div className={cx('price')}>
+                                    ${price} x {product.amount}
+                                </div>
                             </div>
-                        </div>
-                    </MenuItem>
-                ))}
+                        </MenuItem>
+                    );
+                })}
             </div>
             <Link to={config.routes.cart} className={cx('goto-cart')}>
                 Go to cart

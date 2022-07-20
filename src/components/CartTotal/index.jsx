@@ -5,10 +5,10 @@ import styles from './CartTotal.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CartTotal({ total = 0, subTotal = 0, disabledSubmit = false, onSubmit = () => {} }) {
+function CartTotal({ total = 0, subTotal = 0, showHeading = true, disabledSubmit = false, onSubmit = () => {} }) {
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('heading')}>Cart Totals</div>
+            {showHeading && <div className={cx('heading')}>Cart Totals</div>}
             <div className={cx('main')}>
                 <div className={cx('price-item')}>
                     <span className={cx('label')}>Subtotals: </span>

@@ -2,11 +2,10 @@ import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Container, HeadingPage, Image, QuantityInput } from '~/components';
+import { CartTotal, Container, HeadingPage, Image, QuantityInput } from '~/components';
 import config from '~/config';
 import { useDebounce } from '~/hooks';
 import { decrementQuantity, deleteProduct, incrementQuantity, updateUnpaidCart } from '~/redux/slices';
-import CartTotal from './components/CartTotal';
 
 import styles from './Cart.module.scss';
 

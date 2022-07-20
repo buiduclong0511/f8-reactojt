@@ -1,6 +1,7 @@
 export { default as BranchesList } from './BranchesList';
 export { default as Button } from './Button';
 export { default as CartMenu } from './CartMenu';
+export { default as CartTotal } from './CartTotal';
 export { default as Container } from './Container';
 export { default as HeadingPage } from './HeadingPage';
 export { default as IconButton } from './IconButton';

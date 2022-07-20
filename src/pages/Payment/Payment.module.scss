@@ -1,0 +1,33 @@
+.wrapper {
+    padding-top: 153px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.form {
+    flex: 1;
+    background-color: #f8f8fd;
+    border-radius: 3px;
+    padding: 46px 32px;
+}
+
+.cart-info {
+    width: 370px;
+    margin-left: 30px;
+}
+
+.heading {
+    font-size: 18px;
+    line-height: 21px;
+    color: #1d3178;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.last-name-input {
+    margin-left: 32px;
+}
+
+.input {
+    margin-bottom: 42px;
+}

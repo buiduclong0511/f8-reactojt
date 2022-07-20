@@ -3,6 +3,7 @@ export { default as Blog } from './Blog';
 export { default as Cart } from './Cart';
 export { default as Home } from './Home';
 export { default as Login } from './Login';
+export { default as NotFound } from './NotFound';
 export { default as OrderCompleted } from './OrderCompleted';
 export { default as Pages } from './Pages';
 export { default as Payment } from './Payment';

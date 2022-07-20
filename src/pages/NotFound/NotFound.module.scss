@@ -1,0 +1,21 @@
+.wrapper {
+    text-align: center;
+    padding: 118px 0 0;
+
+    .image {
+        margin-bottom: 50px;
+    }
+
+    .description {
+        font-size: 24px;
+        color: #152970;
+        font-weight: 700;
+    }
+
+    .cta-btn {
+        white-space: nowrap;
+        padding: auto 36px;
+        width: min-content;
+        margin: 41px auto 65px;
+    }
+}

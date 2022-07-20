@@ -13,6 +13,7 @@ const config = {
         products: '/products',
         blog: '/blog',
         shop: '/shop',
+        notFound: '*',
     },
 };
 

@@ -6,6 +6,7 @@ import {
     Cart,
     Home,
     Login,
+    NotFound,
     OrderCompleted,
     Pages,
     Payment,
@@ -80,6 +81,11 @@ const routes = [
         path: config.routes.shop,
         layout: DefaultLayout,
         element: Shop,
+    },
+    {
+        path: config.routes.notFound,
+        layout: DefaultLayout,
+        element: NotFound,
     },
 ];
 

@@ -7,12 +7,11 @@ import { Col, Row } from 'reactstrap';
 
 import { getUnpaidCart } from '~/redux/slices';
 import { blogApi, productApi } from '~/api';
-import { BranchesList, Button, Container } from '~/components';
+import { BranchesList, Button, Container, FeaturesList } from '~/components';
 import config from '~/config';
 import BlogItem from './components/BlogItem';
 import FeaturedProductItem from './components/FeaturedProductItem';
 import LatestProductItem from './components/LatestProductItem';
-import OfferItem from './components/OfferItem';
 import SliderBanner from './components/SliderBanner';
 import TrendingProductItem from './components/TrendingProductItem';
 
@@ -21,28 +20,6 @@ import styles from './Home.module.scss';
 const cx = classNames.bind(styles);
 
 function Home() {
-    const offerData = [
-        {
-            img: 'images/car.png',
-            title: '24/7 Support',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.',
-        },
-        {
-            img: 'images/money.png',
-            title: '24/7 Support',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.',
-        },
-        {
-            img: 'images/quality.png',
-            title: '24/7 Support',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.',
-        },
-        {
-            img: 'images/24-hours-support.png',
-            title: '24/7 Support',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa purus gravida.',
-        },
-    ];
     const [featuredProducts, setFeaturedProducts] = useState([]);
     const [latestProducts, setLatestProducts] = useState([]);
     const [trendingProducts, setTrendingProducts] = useState([]);
@@ -202,13 +179,7 @@ function Home() {
                 <div className={cx('shopex-offer')}>
                     <div className={cx('title')}>What Shopex Offer!</div>
                     <div className={cx('list')}>
-                        <Row lg={4}>
-                            {offerData.map((item, index) => (
-                                <Col key={index}>
-                                    <OfferItem data={item} />
-                                </Col>
-                            ))}
-                        </Row>
+                        <FeaturesList />
                     </div>
                 </div>
             </Container>

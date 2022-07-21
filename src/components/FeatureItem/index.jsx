@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
-import styles from './OfferItem.module.scss';
+
+import styles from './FeatureItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function OfferItem({ data = {} }) {
+function FeatureItem({ data = {} }) {
     return (
         <div className={cx('wrapper')}>
             <img src={data.img} alt="" />
@@ -13,4 +14,4 @@ function OfferItem({ data = {} }) {
     );
 }
 
-export default OfferItem;
+export default FeatureItem;

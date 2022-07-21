@@ -11,3 +11,5 @@ export { default as Menu } from './Menu';
 export { default as MenuItem } from './Menu/MenuItem';
 export { default as QuantityInput } from './QuantityInput';
 export { default as ScrollToTop } from './ScrollToTop';
+export { default as FeatureItem } from './FeatureItem';
+export { default as FeaturesList } from './FeaturesList';

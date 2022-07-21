@@ -1,0 +1,135 @@
+.wrapper {
+    padding-top: 119px;
+    padding-bottom: 305px;
+}
+
+.hero {
+    display: flex;
+
+    .image {
+        flex: 1;
+        background-color: #2b3cab;
+        border-radius: 6px;
+        margin-right: 48px;
+        padding-bottom: 15px;
+
+        img {
+            width: 100%;
+            transform: translateX(15px);
+        }
+    }
+
+    .info {
+        flex: 1;
+    }
+}
+
+.info {
+    .info-title {
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 48px;
+        color: #151875;
+        padding-top: 20px;
+    }
+
+    .content {
+        margin-top: 14px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+        color: #8a8fb9;
+    }
+
+    .cta-btn {
+        margin-top: 100px;
+        width: 145px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+        padding: 10px 30px;
+    }
+}
+
+.features {
+    margin-top: 140px;
+}
+
+.title {
+    font-size: 42px;
+    line-height: 26px;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 67px;
+}
+
+.feedbacks {
+    background-color: #fbfbff;
+    padding-top: 70px;
+    padding-bottom: 77px;
+    margin-top: 133px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .images {
+        text-align: center;
+
+        img {
+            margin: 0 6px;
+        }
+
+        .middle {
+            transform: translateY(-7px);
+        }
+    }
+
+    .name {
+        margin-top: 25px;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 26px;
+        color: #151875;
+        text-align: center;
+    }
+
+    .position {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 26px;
+        color: #8a8fb9;
+        text-align: center;
+    }
+
+    .content {
+        margin-top: 14px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 26px;
+        text-align: center;
+        color: #8a8fb9;
+        max-width: 690px;
+    }
+
+    .underline {
+        margin-top: 14px;
+
+        &::after,
+        &::before,
+        span {
+            content: '';
+            display: inline-block;
+            width: 18px;
+            height: 3px;
+            background: #fb2e86;
+            border-radius: 3px;
+            margin: 0 2px;
+        }
+
+        span {
+            display: inline-block;
+            width: 27px;
+        }
+    }
+}

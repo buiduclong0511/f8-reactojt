@@ -59,7 +59,7 @@ function Login() {
                         email: values.email,
                         password: values.password,
                     };
-                    await dispatch(register(body));
+                    await dispatch(register(body)).unwrap();
                 }
                 toast.success('Login success.');
                 navigate('/');
